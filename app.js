@@ -63,4 +63,5 @@ startGameBtn.addEventListener("click", function startGame(){
     }
 
     alert(message);
+    gameIsRunning(false);
 });
