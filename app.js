@@ -7,6 +7,7 @@ const SCISSORS = "SCISSORS";
 const RESULT_DRAW = "DRAW";
 const RESULT_PLAYER_WINS = "PLAYER_WINS";
 const RESULT_COMPUTER_WINS = "COMPUTER_WINS";
+const DEFAULT_PLAYER_CHOICE = ROCK;
 
 let gameIsRunning = false;
 
@@ -17,15 +18,14 @@ const getPlayerChoice = () => {
         selection !== PAPER &&
         selection !== SCISSORS
     ) {
-        alert("Invalid choice. ROCK chosen by default.");
-        selection = ROCK;
+        alert(`Invalid choice. ${DEFAULT_PLAYER_CHOICE} chosen by default.`);
+        return;
     }
     return selection;
 };
 
 const getComputerChoice = () => {
     const randomValue = Math.random();
-    console.log(randomValue);
     if (randomValue < 0.34) {
         return ROCK;
     } else if(randomValue < 0.67) {
@@ -35,7 +35,7 @@ const getComputerChoice = () => {
     }
 };
 
-const getWinner = (computerChoice, playerChoice) =>
+const getWinner = (computerChoice, playerChoice = DEFAULT_PLAYER_CHOICE) =>
     computerChoice === playerChoice 
         ?  RESULT_DRAW 
         : (computerChoice === ROCK && playerChoice === PAPER) || 
@@ -52,7 +52,7 @@ startGameBtn.addEventListener("click", function startGame(){
     const computerChoice = getComputerChoice();
     const gameResult = getWinner(computerChoice, playerChoice);
 
-    let message = `You pucked ${playerChoice}, computer picked ${computerChoice} so you `;
+    let message = `You picked ${playerChoice || DEFAULT_PLAYER_CHOICE }, computer picked ${computerChoice} so you `;
 
     if (gameResult === RESULT_DRAW) {
         message += "had a draw";
